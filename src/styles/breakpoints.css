@@ -1,0 +1,19 @@
+/*
+ * src/styles/breakpoints.css - every breakpoint, declared ONCE (mobile-first: min-width only).
+ *
+ * Why @custom-media and not CSS variables: var() does not work inside @media conditions.
+ * postcss-custom-media (postcss.config.js) compiles these into plain media queries.
+ *
+ * Usage in any *.module.css:
+ *   @import '@/styles/breakpoints.css';
+ *   .grid { display: grid; gap: var(--space-4); }
+ *   @media (--bp-tablet) { .grid { grid-template-columns: 1fr 1fr; } }
+ *
+ * This file only holds definitions - importing it adds no CSS to the bundle.
+ * Never write a raw pixel breakpoint in a component; add one here if truly needed.
+ */
+
+@custom-media --bp-phone-lg (min-width: 480px);
+@custom-media --bp-tablet (min-width: 768px);
+@custom-media --bp-desktop (min-width: 1024px);
+@custom-media --bp-wide (min-width: 1280px);

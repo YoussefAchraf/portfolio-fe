@@ -1,0 +1,28 @@
+{
+  "title": "Hello, full stack",
+  "intro": "Type your name: the browser sends it to the backend through nginx, the backend stores it in PostgreSQL and answers.",
+  "status": {
+    "title": "Stack status",
+    "frontend": "Frontend",
+    "api": "Backend API",
+    "database": "Database",
+    "ok": "OK",
+    "down": "Down",
+    "checking": "Checking..."
+  },
+  "form": {
+    "label": "Your name",
+    "placeholder": "Ada Lovelace",
+    "submit": "Say hello",
+    "submitting": "Sending...",
+    "answer": "The backend answered:"
+  },
+  "list": {
+    "title": "Latest greetings (from the database)",
+    "empty": "No greetings yet. Be the first."
+  },
+  "validation": {
+    "nameRequired": "Enter a name.",
+    "nameTooLong": "Use 60 characters or fewer."
+  }
+}

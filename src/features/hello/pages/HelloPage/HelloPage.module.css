@@ -1,0 +1,44 @@
+/* HelloPage - single column, readable measure, mobile-first. */
+@import '@/styles/breakpoints.css';
+
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-inline-size: var(--measure);
+  margin-inline: auto;
+  padding: var(--space-4);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-700);
+  line-height: var(--line-height-heading);
+}
+
+.intro {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.card {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (--bp-tablet) {
+  .page {
+    padding-block: var(--space-12);
+  }
+
+  .card {
+    padding: var(--space-6);
+  }
+}

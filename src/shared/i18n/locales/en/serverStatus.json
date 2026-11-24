@@ -1,0 +1,8 @@
+{
+  "connecting": "Connecting to the server...",
+  "waking": "Waking up the server...",
+  "slow": "Still waking up - this can take up to a minute.",
+  "hint": "The server sleeps when nobody uses it. This page opens by itself as soon as it is ready.",
+  "timeout": "The server did not wake up.",
+  "retry": "Try again"
+}

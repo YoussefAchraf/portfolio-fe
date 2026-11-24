@@ -1,0 +1,75 @@
+name: Docker build and scan
+on:
+  workflow_call:
+    inputs:
+      push:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  packages: write
+jobs:
+  build-and-scan:
+    name: build-and-scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      # Tags: sha-<short> always; latest on main (the release branch - NOT the default branch, which is dev); vX.Y.Z on git tags.
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=sha,format=short
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=semver,pattern={{version}}
+
+      - name: Build image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          target: runtime
+          build-args: |
+            VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
+            VITE_DEFAULT_LOCALE=${{ vars.VITE_DEFAULT_LOCALE }}
+          push: false
+          load: true
+          tags: rt-fe:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max,ignore-error=true # a cache outage (HTTP 503 seen 2026-11-24) must not fail the build
+
+      - name: Scan image (fails on fixable CRITICAL)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: rt-fe:ci
+          severity: CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Login to GHCR
+        if: ${{ inputs.push }}
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Re-uses the GHA layer cache from the build step above (no full rebuild).
+      - name: Push image
+        if: ${{ inputs.push }}
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          target: runtime
+          build-args: |
+            VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
+            VITE_DEFAULT_LOCALE=${{ vars.VITE_DEFAULT_LOCALE }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          provenance: true
+          sbom: true
+          cache-from: type=gha

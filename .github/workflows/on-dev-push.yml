@@ -1,0 +1,17 @@
+name: On dev push
+# Every merge into dev re-runs verify on the MERGED result. Two branches can each be green alone and still
+# break dev together (semantic conflict, e.g. one renames an export the other starts using). This makes such
+# a break visible immediately; "require branches to be up to date before merging" (branch protection) and the
+# pre-push up-to-date check prevent most of them in the first place.
+on:
+  push:
+    branches: [dev]
+concurrency:
+  group: dev-verify
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  verify:
+    uses: ./.github/workflows/verify.yml
+    secrets: inherit

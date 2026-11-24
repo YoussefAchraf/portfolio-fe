@@ -1,0 +1,12 @@
+{
+  "appNameKey": "common:appName",
+  "messageKeys": {
+    "connecting": "serverStatus:connecting",
+    "waking": "serverStatus:waking",
+    "slow": "serverStatus:slow",
+    "timeout": "serverStatus:timeout"
+  },
+  "hintKey": "serverStatus:hint",
+  "retryKey": "serverStatus:retry",
+  "timings": { "pollMs": 3000, "slowAfterMs": 10000, "timeoutMs": 120000 }
+}

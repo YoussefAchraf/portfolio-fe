@@ -1,0 +1,38 @@
+/* AppLayout - sticky-free simple shell; footer pushed down on short pages. */
+.shell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-block-size: 100dvh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.brand {
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.main {
+  display: block;
+}
+
+.footer {
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-100);
+  text-align: center;
+}

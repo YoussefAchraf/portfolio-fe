@@ -1,0 +1,19 @@
+# Line endings: LF everywhere, on every OS (Windows agents included). Without this file a Windows
+# checkout with core.autocrlf=true rewrites every line and produces whole-file diffs and merge conflicts.
+* text=auto eol=lf
+*.sh text eol=lf
+.githooks/* text eol=lf
+
+# Binary files - never touched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# Parallel tasks each add a CHANGELOG line under [Unreleased]: keep both sides instead of conflicting
+# (git built-in "union" merge driver; review ordering when releasing).
+CHANGELOG.md merge=union

@@ -1,0 +1,28 @@
+{
+  "title": "Bonjour, full stack",
+  "intro": "Saisissez votre nom : le navigateur l'envoie au backend via nginx, le backend l'enregistre dans PostgreSQL et répond.",
+  "status": {
+    "title": "État de la pile",
+    "frontend": "Frontend",
+    "api": "API backend",
+    "database": "Base de données",
+    "ok": "OK",
+    "down": "Indisponible",
+    "checking": "Vérification..."
+  },
+  "form": {
+    "label": "Votre nom",
+    "placeholder": "Ada Lovelace",
+    "submit": "Dire bonjour",
+    "submitting": "Envoi...",
+    "answer": "Le backend a répondu :"
+  },
+  "list": {
+    "title": "Derniers bonjours (depuis la base de données)",
+    "empty": "Aucun bonjour pour l'instant. Soyez le premier."
+  },
+  "validation": {
+    "nameRequired": "Saisissez un nom.",
+    "nameTooLong": "60 caractères maximum."
+  }
+}

@@ -1,0 +1,88 @@
+name: Verify
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  lint:
+    name: lint (eslint + oxlint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/setup-project
+      - run: npm run lint
+
+  boundaries-report:
+    name: boundaries report
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/setup-project
+      - name: Architecture boundary violations
+        run: npx eslint . --rule '{"boundaries/dependencies":"error"}' --format json --output-file boundaries-report.json || true
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: boundaries-report
+          path: boundaries-report.json
+          if-no-files-found: ignore
+
+  # Security rules (storage bans, inline styles, dangerouslySetInnerHTML, window.open) are enforced by
+  # the main lint job via eslint.config.mjs. This job enforces workspace POLICIES no linter covers.
+  policy:
+    name: template policies (no PWA, tokens only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+      # Same script agents run locally (`npm run check:policy`) - one source of truth, no install needed.
+      - name: No PWA + colors/fonts only in tokens.css
+        run: node scripts/check-policy.mjs
+
+  docs:
+    name: docs (generated README sections are current)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+      # Same script as `npm run docs:check` - fails when docs/ changed but README.md was not regenerated.
+      - run: node scripts/docs-readme.mjs --check
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/setup-project
+      - run: npm run typecheck
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/setup-project
+      - run: npm test
+
+  sca:
+    name: sca
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/setup-project
+      - name: npm audit (report only)
+        run: npm audit --omit=dev || true
+
+  secret-scan:
+    name: secret-scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

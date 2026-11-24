@@ -1,0 +1,86 @@
+/* GreetingForm - tokens only, mobile-first, every interactive state styled. */
+@import '@/styles/breakpoints.css';
+
+.form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.input {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.button {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-accent-hover);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.input:focus-visible,
+.button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: var(--font-size-200);
+}
+
+.answer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  min-block-size: var(--space-6);
+}
+
+.answerLabel {
+  color: var(--color-text-muted);
+}
+
+.answerText {
+  font-size: var(--font-size-500);
+  color: var(--color-accent);
+}
+
+@media (--bp-tablet) {
+  .row {
+    grid-template-columns: 1fr auto;
+  }
+}

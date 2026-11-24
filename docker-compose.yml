@@ -1,0 +1,19 @@
+# rt-fe production-like container (frontend ONLY).
+# The backend runs from et-be (its own compose: `docker compose up -d backend` in ../et-be).
+#
+#   docker compose up -d --build        -> http://localhost:3000
+#
+# BACKEND_UPSTREAM points nginx at the backend. Default: et-be published on the host's port 4000.
+# Port map: contracts/conventions.md (3000 frontend, 4000 backend).
+
+services:
+  frontend:
+    build:
+      context: .
+    restart: unless-stopped
+    environment:
+      BACKEND_UPSTREAM: ${BACKEND_UPSTREAM:-http://host.docker.internal:4000}
+    ports:
+      - "${PORT:-3000}:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

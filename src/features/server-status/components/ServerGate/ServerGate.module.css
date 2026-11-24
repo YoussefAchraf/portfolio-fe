@@ -1,0 +1,142 @@
+/* ServerGate - full-screen splash, tokens only.
+   The content fades in after a short delay: an awake backend answers first, so there is no flash.
+   Reduced motion: slower, never frozen; the fade-out stays (1ms) so animationend still removes the splash. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.leaving {
+  pointer-events: none;
+  animation: fade-out var(--duration-slow) var(--easing-standard) forwards;
+}
+
+.content {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  max-inline-size: 28rem;
+  text-align: center;
+  animation: fade-in var(--duration-slow) var(--easing-standard) var(--duration-base) both;
+}
+
+.pulse {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dot {
+  inline-size: var(--space-3);
+  block-size: var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  animation: bounce 1.2s var(--easing-standard) infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stopped .dot {
+  background: var(--color-text-muted);
+  animation: none;
+}
+
+.appName {
+  margin: 0;
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+}
+
+.message {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-400);
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-200);
+}
+
+.retry {
+  min-block-size: var(--touch-target-min);
+  padding: var(--space-2) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+
+.retry:hover {
+  background: var(--color-accent-hover);
+}
+
+.retry:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation-duration: 3s;
+  }
+
+  .content {
+    animation-duration: 1ms;
+  }
+
+  .leaving {
+    animation-duration: 1ms;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "appName": "Modèle PERN",
+  "footer": "Frontend (React) -> nginx /api -> backend (Express) -> PostgreSQL",
+  "loading": "Chargement...",
+  "errors": {
+    "VALIDATION_FAILED": "Certaines valeurs ne sont pas valides.",
+    "UNAUTHENTICATED": "Veuillez vous reconnecter.",
+    "INVALID_CREDENTIALS": "E-mail ou mot de passe incorrect.",
+    "FORBIDDEN": "Vous n'avez pas le droit de faire cela.",
+    "CSRF_INVALID": "Votre session a expiré. Rechargez la page.",
+    "NOT_FOUND": "Cette page n'existe pas.",
+    "CONFLICT": "Cet élément existe déjà.",
+    "RATE_LIMITED": "Trop de tentatives. Patientez un instant.",
+    "INTERNAL_ERROR": "Une erreur est survenue de notre côté.",
+    "NETWORK_ERROR": "Le serveur est injoignable.",
+    "TIMEOUT": "Le serveur a mis trop de temps à répondre.",
+    "unexpected": "Erreur inattendue.",
+    "reload": "Recharger"
+  }
+}

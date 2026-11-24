@@ -1,0 +1,7 @@
+{
+  "titleKey": "hello:status.title",
+  "frontendKey": "hello:status.frontend",
+  "apiKey": "hello:status.api",
+  "databaseKey": "hello:status.database",
+  "stateKeys": { "ok": "hello:status.ok", "down": "hello:status.down", "checking": "hello:status.checking" }
+}

@@ -1,0 +1,67 @@
+name: On work branch push
+# Runs on every work branch (see agents/ENGINEER.md section 7):
+#   feature/** fix/** refactor/** perf/** test/** docs/** chore/** ci/**  -> verify, then PR into dev (auto-merge)
+#   hotfix/**                                                            -> verify, then PR into main (NO auto-merge)
+# Uses the repository secret DEV_AUTOMERGE_TOKEN (a fine-grained PAT with pull-requests: write). Without it
+# the job skips with a notice and the PR is opened manually (no red check).
+# A PAT is needed because PRs opened with GITHUB_TOKEN do not trigger the "On pull request" workflow.
+# Auto-merge only waits for checks that branch protection marks as REQUIRED on dev - configure them.
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "fix/**"
+      - "refactor/**"
+      - "perf/**"
+      - "test/**"
+      - "docs/**"
+      - "chore/**"
+      - "ci/**"
+      - "hotfix/**"
+
+# A newer push to the same branch cancels the older run (saves CI time, avoids stale results).
+concurrency:
+  group: work-branch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    uses: ./.github/workflows/verify.yml
+    secrets: inherit
+
+  open-pr:
+    name: open-pr
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.DEV_AUTOMERGE_TOKEN }}
+      # Untrusted values go through env vars, never interpolated into the script (shell injection).
+      BRANCH: ${{ github.ref_name }}
+      REPO: ${{ github.repository }}
+      HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Open (or reuse) the PR for this branch
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::notice::DEV_AUTOMERGE_TOKEN is not set - PR not opened automatically. Open it manually (gh pr create --base dev)."
+            exit 0
+          fi
+          case "$BRANCH" in
+            hotfix/*) BASE=main; AUTO=false ;;
+            *)        BASE=dev;  AUTO=true ;;
+          esac
+          EXISTING=$(gh pr list --repo "$REPO" --head "$BRANCH" --base "$BASE" --json number --jq 'length')
+          if [ "$EXISTING" = "0" ]; then
+            TITLE=$(printf '%s\n' "$HEAD_COMMIT_MESSAGE" | head -n1)
+            gh pr create --repo "$REPO" --base "$BASE" --head "$BRANCH" \
+              --title "$TITLE" --body "Opened automatically after verify passed on \`$BRANCH\`. Link the task brief (contracts/tasks/) in this description."
+          fi
+          if [ "$AUTO" = "true" ]; then
+            gh pr merge "$BRANCH" --repo "$REPO" --auto --squash
+          else
+            echo "hotfix branch: PR into main left for manual review (then back-merge main into dev)."
+          fi

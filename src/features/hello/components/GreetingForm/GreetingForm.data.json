@@ -1,0 +1,9 @@
+{
+  "inputId": "greeting-name",
+  "maxLength": 60,
+  "labelKey": "hello:form.label",
+  "placeholderKey": "hello:form.placeholder",
+  "submitKey": "hello:form.submit",
+  "submittingKey": "hello:form.submitting",
+  "answerKey": "hello:form.answer"
+}

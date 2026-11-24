@@ -1,0 +1,20 @@
+{
+  "appName": "PERN template",
+  "footer": "Frontend (React) -> nginx /api -> backend (Express) -> PostgreSQL",
+  "loading": "Loading...",
+  "errors": {
+    "VALIDATION_FAILED": "Some values are not valid.",
+    "UNAUTHENTICATED": "Please sign in again.",
+    "INVALID_CREDENTIALS": "Wrong email or password.",
+    "FORBIDDEN": "You are not allowed to do this.",
+    "CSRF_INVALID": "Your session expired. Reload the page.",
+    "NOT_FOUND": "This page does not exist.",
+    "CONFLICT": "This already exists.",
+    "RATE_LIMITED": "Too many attempts. Wait a moment.",
+    "INTERNAL_ERROR": "Something went wrong on our side.",
+    "NETWORK_ERROR": "The server could not be reached.",
+    "TIMEOUT": "The server took too long to answer.",
+    "unexpected": "Unexpected error.",
+    "reload": "Reload"
+  }
+}

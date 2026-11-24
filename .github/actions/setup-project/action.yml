@@ -1,0 +1,19 @@
+name: Setup project
+description: Install Node.js and dependencies with npm caching (checkout is the caller's responsibility)
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      with:
+        node-version-file: .nvmrc
+        cache: npm
+        cache-dependency-path: package.json
+    - name: Install dependencies (npm ci once package-lock.json is committed)
+      shell: bash
+      run: |
+        if [ -f package-lock.json ]; then
+          npm ci
+        else
+          echo "::warning::package-lock.json missing - using npm install. Commit the lockfile for reproducible builds."
+          npm install
+        fi

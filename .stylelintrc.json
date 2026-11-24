@@ -1,0 +1,29 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch"],
+    "declaration-property-value-disallowed-list": {
+      "font-family": ["/^(?!var\\().*/"],
+      "font": ["/^(?!inherit$).*/"]
+    },
+    "import-notation": "string",
+    "selector-class-pattern": ["^[a-z][a-zA-Z0-9]*$", { "message": "CSS module classes are camelCase (styles.someClass)" }],
+    "custom-media-pattern": ["^bp-[a-z0-9-]+$", { "message": "Breakpoints are named --bp-<name> and declared only in src/styles/breakpoints.css" }],
+    "at-rule-no-unknown": [true, { "ignoreAtRules": ["custom-media"] }],
+    "media-feature-name-no-unknown": true
+  },
+  "overrides": [
+    {
+      "files": ["src/styles/tokens.css"],
+      "rules": {
+        "color-no-hex": null,
+        "color-named": null,
+        "function-disallowed-list": null,
+        "declaration-property-value-disallowed-list": null
+      }
+    }
+  ],
+  "ignoreFiles": ["dist/**", "coverage/**", "node_modules/**"]
+}
