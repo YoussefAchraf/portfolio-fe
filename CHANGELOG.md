@@ -9,6 +9,8 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+- (001) Localized portfolio home with About, persisted theme selection and backend readiness splash.
+
 ### Added
 - Wake-up splash (server gate): an animated splash says the server is waking up; the app mounts only when the backend and its database are ready (free hosting sleeps). See docs/features/server-status.md.
 
