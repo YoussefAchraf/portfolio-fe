@@ -1,31 +1,19 @@
-/**
- * LAYER    routes
- * ROLE     The route tree: ServerGate -> layout -> lazily loaded pages (one JS chunk per page). ServerGate
- *          shows the wake-up splash until the backend and its database are ready (free hosting sleeps), so
- *          every page - present and future - mounts against a live backend. Guards (ProtectedRoute,
- *          GuestRoute) and layout slots are added here when the auth feature lands.
- * TRACKING Read this file (with app/App.tsx) to see every screen and how it is reached.
- */
-import { createBrowserRouter } from 'react-router-dom';
+/** LAYER routes - localized public routes behind the readiness splash. */
+import type { ComponentType } from 'react';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { paths } from './paths';
 import { RouteError } from './RouteError';
 import { ServerGate } from '@/features/server-status/components/ServerGate/ServerGate';
-import { AppLayout } from '@/layouts/AppLayout/AppLayout';
+
+const loadHome = async (): Promise<{ Component: ComponentType }> => ({ Component: (await import('@/features/profile/pages/HomePage/HomePage')).default });
 
 export const router = createBrowserRouter([
   {
-    path: paths.hello,
-    element: (
-      <ServerGate>
-        <AppLayout />
-      </ServerGate>
-    ),
+    element: <ServerGate><Outlet /></ServerGate>,
     errorElement: <RouteError />,
     children: [
-      {
-        index: true,
-        lazy: async () => ({ Component: (await import('@/features/hello/pages/HelloPage/HelloPage')).default }),
-      },
+      { path: paths.home, lazy: loadHome },
+      { path: paths.homeFr, lazy: loadHome },
     ],
   },
 ]);

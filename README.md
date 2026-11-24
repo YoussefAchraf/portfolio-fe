@@ -53,6 +53,7 @@ list read back from it - the proof that the whole chain is configured.
 |---|---|---|---|
 | [Hello (full-stack template)](docs/features/hello.md) | released | - | Type a name - it travels through nginx to the backend, is stored in PostgreSQL, and the backend answers "hello <name>". |
 | [Wake-up splash (server gate)](docs/features/server-status.md) | released | - | An animated splash says the server is waking up; the app appears only when the backend and its database are ready. |
+| [Portfolio home](docs/features/profile.md) | in-progress | - | Bilingual portfolio hero and About with dark, light and system themes. |
 
 <!-- AUTO-GENERATED:FEATURES:END -->
 
@@ -65,7 +66,9 @@ Feature pages: [docs/features/](docs/features/). Release history: [CHANGELOG.md]
 
 | Route | Access | Feature | Status |
 |---|---|---|---|
-| `/` | public | [Hello (full-stack template)](docs/features/hello.md) | released |
+| `-` | public | [Hello (full-stack template)](docs/features/hello.md) | released |
+| `/` | public | [Portfolio home](docs/features/profile.md) | in-progress |
+| `/fr` | public | [Portfolio home](docs/features/profile.md) | in-progress |
 
 <!-- AUTO-GENERATED:ROUTES:END -->
 
@@ -79,6 +82,7 @@ Authorization is always enforced by the API; guards only shape the experience.
 
 **Unreleased (merged into dev)**
 
+- (001) Localized portfolio home with About, persisted theme selection and backend readiness splash.
 _Added_
 - Wake-up splash (server gate): an animated splash says the server is waking up; the app mounts only when the backend and its database are ready (free hosting sleeps). See docs/features/server-status.md.
 _Security_

@@ -5,7 +5,7 @@ status: released           # template baseline: proves frontend, backend and dat
 since: -
 task: -
 summary: Type a name - it travels through nginx to the backend, is stored in PostgreSQL, and the backend answers "hello <name>".
-routes: / [public]
+routes: -
 ---
 
 # Hello (full-stack template)

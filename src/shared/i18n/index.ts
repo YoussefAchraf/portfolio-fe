@@ -11,14 +11,16 @@ import { initReactI18next } from 'react-i18next';
 import { env } from '../lib/env';
 import enCommon from './locales/en/common.json';
 import enHello from './locales/en/hello.json';
+import enProfile from './locales/en/profile.json';
 import enServerStatus from './locales/en/serverStatus.json';
 import frCommon from './locales/fr/common.json';
 import frHello from './locales/fr/hello.json';
+import frProfile from './locales/fr/profile.json';
 import frServerStatus from './locales/fr/serverStatus.json';
 
 export const resources = {
-  en: { common: enCommon, hello: enHello, serverStatus: enServerStatus },
-  fr: { common: frCommon, hello: frHello, serverStatus: frServerStatus },
+  en: { common: enCommon, hello: enHello, profile: enProfile, serverStatus: enServerStatus },
+  fr: { common: frCommon, hello: frHello, profile: frProfile, serverStatus: frServerStatus },
 } as const;
 
 void i18n
@@ -28,7 +30,7 @@ void i18n
     resources,
     supportedLngs: ['en', 'fr'],
     fallbackLng: env.defaultLocale,
-    ns: ['common', 'hello', 'serverStatus'],
+    ns: ['common', 'hello', 'serverStatus', 'profile'],
     defaultNS: 'common',
     interpolation: { escapeValue: false },
     detection: { order: ['querystring', 'navigator'], caches: [] },

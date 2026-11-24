@@ -8,11 +8,11 @@ import type { RenderResult } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-export function renderWithProviders(ui: ReactElement): RenderResult {
+export function renderWithProviders(ui: ReactElement, initialEntries: string[] = ['/']): RenderResult {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   return render(
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter>{ui}</MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
     </QueryClientProvider>,
   );
 }

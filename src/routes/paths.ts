@@ -3,5 +3,7 @@
  * ROLE     Every URL of the app, in one place. Components link with paths.x - never string literals (lint).
  */
 export const paths = {
+  home: '/',
+  homeFr: '/fr',
   hello: '/',
 } as const;
