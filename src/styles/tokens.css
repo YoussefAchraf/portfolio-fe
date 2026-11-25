@@ -29,6 +29,10 @@
   --line-height-body: 1.5;
   --line-height-heading: 1.2;
   --measure: 64ch;
+  --font-size-display: clamp(3.15rem, 9vw, 8.4rem);
+  --font-size-section: clamp(2rem, 4.5vw, 4.2rem);
+  --glass-blur: 14px;
+  --hero-grid-size: clamp(2rem, 5vw, 4.5rem);
 
   /* Spacing scale (4/8 grid) */
   --space-1: 0.25rem;  /* 4  */
@@ -64,6 +68,12 @@
   --shadow-md: 0 4px 12px rgb(0 0 0 / 50%);
   --color-control-border: #7790a8;
   --hero-glow: radial-gradient(ellipse at top right, rgb(77 226 244 / 14%), transparent 65%);
+    --color-violet: #bba7ff;
+    --color-glass: rgb(12 21 38 / 92%);
+    --color-glass-border: #334661;
+    --glow-mesh: radial-gradient(ellipse at 80% 18%, rgb(77 226 244 / 18%), transparent 55%), radial-gradient(ellipse at 60% 80%, rgb(142 103 250 / 21%), transparent 57%);
+    --name-gradient: linear-gradient(105deg, var(--color-text) 8%, var(--color-accent) 58%, var(--color-violet));
+    --color-hero-grid: rgb(123 175 217 / 13%);
 
   /* Motion policy: reveal content once, with visible content as the default.
    * Use hover lift on pointer devices. Run the ambient hero animation once,
@@ -115,6 +125,12 @@
   --shadow-md: 0 4px 12px rgb(15 23 42 / 10%);
   --color-control-border: #657c8f;
   --hero-glow: radial-gradient(ellipse at top right, rgb(0 104 121 / 9%), transparent 65%);
+    --color-violet: #5b38aa;
+    --color-glass: rgb(255 255 255 / 92%);
+    --color-glass-border: #d2deea;
+    --glow-mesh: radial-gradient(ellipse at 80% 18%, rgb(0 104 121 / 13%), transparent 55%), radial-gradient(ellipse at 60% 80%, rgb(91 56 170 / 11%), transparent 57%);
+    --name-gradient: linear-gradient(105deg, var(--color-text) 8%, var(--color-accent) 58%, var(--color-violet));
+    --color-hero-grid: rgb(51 95 131 / 13%);
 }
 
 @media (prefers-color-scheme: light) {
@@ -144,6 +160,12 @@
     --shadow-md: 0 4px 12px rgb(15 23 42 / 10%);
     --color-control-border: #657c8f;
     --hero-glow: radial-gradient(ellipse at top right, rgb(0 104 121 / 9%), transparent 65%);
+      --color-violet: #5b38aa;
+      --color-glass: rgb(255 255 255 / 92%);
+      --color-glass-border: #d2deea;
+      --glow-mesh: radial-gradient(ellipse at 80% 18%, rgb(0 104 121 / 13%), transparent 55%), radial-gradient(ellipse at 60% 80%, rgb(91 56 170 / 11%), transparent 57%);
+      --name-gradient: linear-gradient(105deg, var(--color-text) 8%, var(--color-accent) 58%, var(--color-violet));
+      --color-hero-grid: rgb(51 95 131 / 13%);
   }
 }
 

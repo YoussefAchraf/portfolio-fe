@@ -1,19 +1,25 @@
 /** LAYER routes - localized public routes behind the readiness splash. */
-import type { ComponentType } from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import type { ReactElement } from 'react';
+import { createBrowserRouter, Outlet, useLocation } from 'react-router-dom';
 import { paths } from './paths';
 import { RouteError } from './RouteError';
+import { useProfile } from '@/features/profile/hooks/useProfile';
+import HomePage from '@/features/profile/pages/HomePage/HomePage';
 import { ServerGate } from '@/features/server-status/components/ServerGate/ServerGate';
 
-const loadHome = async (): Promise<{ Component: ComponentType }> => ({ Component: (await import('@/features/profile/pages/HomePage/HomePage')).default });
+function PublicGate(): ReactElement {
+  const { pathname } = useLocation();
+  useProfile(pathname === paths.homeFr ? 'fr' : 'en');
+  return <ServerGate><Outlet /></ServerGate>;
+}
 
 export const router = createBrowserRouter([
   {
-    element: <ServerGate><Outlet /></ServerGate>,
+    element: <PublicGate />,
     errorElement: <RouteError />,
     children: [
-      { path: paths.home, lazy: loadHome },
-      { path: paths.homeFr, lazy: loadHome },
+      { path: paths.home, Component: HomePage },
+      { path: paths.homeFr, Component: HomePage },
     ],
   },
 ]);

@@ -9,6 +9,8 @@ versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+- (001) Task 001b updates the bilingual portfolio home and design system.
+
 - (001) Localized portfolio home with About, persisted theme selection and backend readiness splash.
 
 ### Added

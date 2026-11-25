@@ -1,1 +1,19 @@
-{"navigation":"Navigation du portfolio","about":"\u00c0 propos","language":"English","theme":"Th\u00e8me","dark":"Sombre","light":"Clair","system":"Syst\u00e8me","loading":"Chargement du profil...","error":"Le profil n'a pas pu \u00eatre charg\u00e9.","retry":"R\u00e9essayer"}
+{
+  "navigation": "Navigation du portfolio",
+  "about": "À propos",
+  "language": "English",
+  "theme": "Thème",
+  "dark": "Sombre",
+  "light": "Clair",
+  "system": "Système",
+  "loading": "Chargement du profil...",
+  "error": "Le profil n'a pas pu être chargé.",
+  "retry": "Réessayer",
+  "menu": "Menu",
+  "projects": "Projets",
+  "contact": "Me contacter",
+  "explore": "Explorer les projets",
+  "themeCurrent": "Thème : {{theme}}. Changer de thème",
+  "projectsPending": "Les études de cas seront bientôt disponibles.",
+  "contactPending": "Le formulaire de contact sera bientôt disponible."
+}
