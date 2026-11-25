@@ -82,6 +82,7 @@ Authorization is always enforced by the API; guards only shape the experience.
 
 **Unreleased (merged into dev)**
 
+- (001) Task 001b updates the bilingual portfolio home and design system.
 - (001) Localized portfolio home with About, persisted theme selection and backend readiness splash.
 _Added_
 - Wake-up splash (server gate): an animated splash says the server is waking up; the app mounts only when the backend and its database are ready (free hosting sleeps). See docs/features/server-status.md.
