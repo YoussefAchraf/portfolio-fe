@@ -1,1 +1,19 @@
-{"navigation":"Portfolio navigation","about":"About","language":"Fran\u00e7ais","theme":"Theme","dark":"Dark","light":"Light","system":"System","loading":"Loading profile...","error":"The profile could not be loaded.","retry":"Try again"}
+{
+  "navigation": "Portfolio navigation",
+  "about": "About",
+  "language": "Français",
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System",
+  "loading": "Loading profile...",
+  "error": "The profile could not be loaded.",
+  "retry": "Try again",
+  "menu": "Menu",
+  "projects": "Projects",
+  "contact": "Contact me",
+  "explore": "Explore projects",
+  "themeCurrent": "Theme: {{theme}}. Switch theme",
+  "projectsPending": "Case studies are coming soon.",
+  "contactPending": "The contact form is coming soon."
+}

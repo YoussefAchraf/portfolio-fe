@@ -1,81 +1,124 @@
-.header, .main {
-  max-width: var(--layout-max-width);
-  margin-inline: auto;
-  padding-inline: var(--space-4);
-}
-
-.navigation {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4);
-  padding-block: var(--space-4);
-}
-
-.navigation a, .action {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--touch-target-min);
-  color: var(--color-accent);
-}
-
-.theme {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-inline-start: auto;
-}
-
-.theme select {
-  min-height: var(--touch-target-min);
-  border: 1px solid var(--color-control-border);
-  border-radius: var(--radius-sm);
-  padding-inline: var(--space-2);
-  background: var(--color-surface);
+.brand {
   color: var(--color-text);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-500);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
 }
 
-.hero, .about {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: clamp(var(--space-4), 5vw, var(--space-12));
-  background-color: var(--color-surface);
+.brand span {
+  color: var(--color-accent);
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  min-height: calc(100svh - 4.25rem);
+  overflow: clip;
+  background-image: linear-gradient(var(--color-hero-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-hero-grid) 1px, transparent 1px);
+  background-size: var(--hero-grid-size) var(--hero-grid-size);
+}
+
+.mesh {
+  position: absolute;
+  z-index: -1;
+  inset: -12%;
+  background: var(--glow-mesh);
+  pointer-events: none;
+  animation: mesh 400ms ease-out both paused;
+}
+
+.mesh[data-active='true'] {
+  animation-play-state: running;
+}
+
+@keyframes mesh {
+  from { transform: scale(1.12) translate3d(1%, 2%, 0); opacity: 0.75; }
+  to { transform: scale(1) translate3d(0, 0, 0); opacity: 1; }
+}
+
+.heroContent {
   padding-block: var(--space-section);
-  background-image: var(--hero-glow);
 }
 
 .hero h1 {
-  font-size: var(--font-size-700);
+  width: fit-content;
+  margin-block: var(--space-6) var(--space-2);
+  background-image: var(--name-gradient);
+  background-clip: text;
+  color: transparent;
+  font-size: var(--font-size-display);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
 }
 
 .headline {
-  font-size: var(--font-size-500);
+  max-width: 30ch;
+  margin-block: var(--space-4);
+  font-size: var(--font-size-600);
+  line-height: 1.18;
 }
 
-.availability {
-  color: var(--color-accent);
+.pitch {
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-400);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block: var(--space-8);
+}
+
+.scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target-min);
+  color: var(--color-text-muted);
   font-family: var(--font-family-mono);
 }
 
 .about {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  gap: var(--space-8);
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
-  margin-block: var(--space-8);
 }
 
-.about div {
-  flex: 1 1 20rem;
+.about h2 {
+  font-size: var(--font-size-section);
+}
+
+.about p {
   max-width: var(--measure);
 }
 
-.about img {
-  max-width: 100%;
+.portrait {
+  width: min(100%, 22rem);
+  padding: var(--space-4);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
   height: auto;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
+}
+
+@media (width >= 48rem) {
+  .about {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh { animation: none; }
+}
+
+@media (forced-colors: active) {
+  .hero h1 { color: inherit; }
 }
